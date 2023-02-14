@@ -19,7 +19,7 @@ func AES_Encrypt(file string) {
 
 	// The key should be 16 bytes (AES-128), 24 bytes (AES-192) or
 	// 32 bytes (AES-256)
-	k := "9DGKmRcJoakBKGgbOJt4DoEfuUGEOML"
+	k := "9DGKmRcJoakBKGgbOJt4DoEfuUGEOMLA"
 
 	block, err := aes.NewCipher([]byte(k))
 	if err != nil {
@@ -53,7 +53,7 @@ func AES_Decrypt(file string) {
 		log.Fatal(err)
 	}
 
-	k := "9DGKmRcJoakBKGgbOJt4DoEfuUGEOMLAR"
+	k := "9DGKmRcJoakBKGgbOJt4DoEfuUGEOMLA"
 	block, err := aes.NewCipher([]byte(k))
 	if err != nil {
 		log.Panic(err)

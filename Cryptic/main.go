@@ -72,6 +72,8 @@ func main() {
 		for _, file := range files {
 			if file.Name() == "cryptic" {
 				continue
+			} else if file.Name() == "cryptic.exe" {
+				continue
 			} else {
 				fmt.Println(file.Name(), file.IsDir())
 				rand.Seed(time.Now().UnixNano())
