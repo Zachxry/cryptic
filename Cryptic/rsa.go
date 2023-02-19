@@ -57,7 +57,7 @@ func RsaEncrypt(file string) {
 		log.Panic(err)
 	}
 
-	// We actually sign the hashed message
+	// sign the hashed message
 	msgHash := sha256.New()
 	_, err = msgHash.Write(message)
 	if err != nil {
