@@ -17,7 +17,6 @@ func generateKeyPair(bits int) (*rsa.PrivateKey, *rsa.PublicKey) {
 	if err != nil {
 		panic(err)
 	}
-
 	// The public key is part of the PrivateKey struct
 	return privateKey, &privateKey.PublicKey
 }
@@ -32,6 +31,7 @@ func RsaEncrypt(file string) {
 
 	message := []byte(plaintext)
 	// This method ensures that a different cipher is generated each time
+	log.Print("Encrypting file with RSA")
 	cipherText, err := rsa.EncryptOAEP(sha256.New(), rand.Reader, publicKey, message, nil)
 	if err != nil {
 		panic(err)
@@ -39,11 +39,12 @@ func RsaEncrypt(file string) {
 	fmt.Printf("Encrypted: %v\n", cipherText)
 
 	// write encrypted message to a file
-	err = ioutil.WriteFile("r_ciphertext.enc", cipherText, 0777)
+	err = ioutil.WriteFile("r_"+randSeq(5)+"_"+string(file)+".enc", cipherText, 0777)
 	if err != nil {
 		log.Panic(err)
 	}
 
+	log.Print("Decrypting file with RSA")
 	decMessage, err := rsa.DecryptOAEP(sha256.New(), rand.Reader, privateKey, cipherText, nil)
 	if err != nil {
 		panic(err)
@@ -51,7 +52,7 @@ func RsaEncrypt(file string) {
 	fmt.Printf("Original: %s\n", string(decMessage))
 
 	// write decrypted message to a file
-	err = ioutil.WriteFile("decrypted.txt", decMessage, 0777)
+	err = ioutil.WriteFile("r_"+randSeq(5)+"_"+string(file)+".dec", decMessage, 0777)
 	if err != nil {
 		log.Panic(err)
 	}

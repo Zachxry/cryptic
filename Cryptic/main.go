@@ -27,7 +27,7 @@ var decrypt bool
 
 func init() {
 	// aes
-	flag.BoolVar(&aes256, "aes256", false, "encryption type")
+	flag.BoolVar(&aes256, "aes", false, "encryption type")
 
 	// des
 	flag.BoolVar(&desTriple, "des", false, "encryption type")
@@ -58,9 +58,21 @@ func main() {
 		}
 	}
 
+	// des encrypt and decrypt
 	if desTriple {
-		TripleDesEncrypt(*file)
-		TripleDesDecrypt()
+		if encrypt {
+			TripleDesEncrypt(*file)
+		}
+
+		if decrypt {
+			TripleDesDecrypt(*file)
+		}
+	}
+
+	if rsa_ {
+		if encrypt {
+			RsaEncrypt(*file)
+		}
 	}
 
 	if random {
