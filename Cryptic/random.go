@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// Not in use
 func init() {
 	rand.Seed(time.Now().UnixNano())
 }

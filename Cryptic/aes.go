@@ -41,7 +41,7 @@ func AES_Encrypt(file string) {
 
 	ciphertext := gcm.Seal(nonce, nonce, plaintext, nil)
 	// Save back to file
-	err = ioutil.WriteFile("a_"+randSeq(5)+"_"+string(file)+".enc", ciphertext, 0777)
+	err = ioutil.WriteFile("a_"+string(file)+".enc", ciphertext, 0777)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -72,7 +72,7 @@ func AES_Decrypt(file string) {
 		fmt.Printf("File not ciphertext\nError: %v", err)
 	}
 
-	err = ioutil.WriteFile("a_"+randSeq(5)+"_"+string(file)+".dec", plaintext, 0777)
+	err = ioutil.WriteFile(string(file)+".dec", plaintext, 0777)
 	if err != nil {
 		log.Panic(err)
 	}

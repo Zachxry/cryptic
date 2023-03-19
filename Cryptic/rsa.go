@@ -39,7 +39,7 @@ func RsaEncrypt(file string) {
 	fmt.Printf("Encrypted: %v\n", cipherText)
 
 	// write encrypted message to a file
-	err = ioutil.WriteFile("r_"+randSeq(5)+"_"+string(file)+".enc", cipherText, 0777)
+	err = ioutil.WriteFile("r_"+string(file)+".enc", cipherText, 0777)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -52,7 +52,7 @@ func RsaEncrypt(file string) {
 	fmt.Printf("Original: %s\n", string(decMessage))
 
 	// write decrypted message to a file
-	err = ioutil.WriteFile("r_"+randSeq(5)+"_"+string(file)+".dec", decMessage, 0777)
+	err = ioutil.WriteFile("r_"+string(file)+".dec", decMessage, 0777)
 	if err != nil {
 		log.Panic(err)
 	}

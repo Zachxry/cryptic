@@ -28,7 +28,7 @@ func TripleDesEncrypt(file string) {
 	encrypted := make([]byte, len(origData))
 	mode.CryptBlocks(encrypted, origData)
 
-	err = ioutil.WriteFile("d_"+randSeq(5)+"_"+string(file)+".enc", encrypted, 0777)
+	err = ioutil.WriteFile("d_"+string(file)+".enc", encrypted, 0777)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -56,7 +56,7 @@ func TripleDesDecrypt(file string) {
 	decrypter.CryptBlocks(decrypted, data)
 	decrypted = PKCS5UnPadding(decrypted)
 
-	err = ioutil.WriteFile("d_"+randSeq(5)+"_"+string(file)+".dec", decrypted, 0777)
+	err = ioutil.WriteFile(string(file)+".dec", decrypted, 0777)
 	if err != nil {
 		log.Panic(err)
 	}
