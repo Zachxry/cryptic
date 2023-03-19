@@ -9,36 +9,21 @@ import (
 	"time"
 )
 
-// aes flag
-var aes256 bool
-
-// des flag
-var desTriple bool
-
-// rsa flag
+// methods
+var aes_ bool
+var des_ bool
 var rsa_ bool
-
-// random flag
 var random bool
-
-// enc & dec
 var encrypt bool
 var decrypt bool
+var all bool
 
 func init() {
-	// aes
-	flag.BoolVar(&aes256, "aes", false, "encryption type")
-
-	// des
-	flag.BoolVar(&desTriple, "des", false, "encryption type")
-
-	// rsa
+	flag.BoolVar(&aes_, "aes", false, "encryption type")
+	flag.BoolVar(&des_, "des", false, "encryption type")
 	flag.BoolVar(&rsa_, "rsa", false, "encryption type")
-
-	// random method
 	flag.BoolVar(&random, "random", false, "encryption type")
-
-	// encrypt & decrypt
+	flag.BoolVar(&all, "all", false, "encrypt all files in directory")
 	flag.BoolVar(&encrypt, "encrypt", false, "encrypting file")
 	flag.BoolVar(&decrypt, "decrypt", false, "decrypting file")
 }
@@ -47,8 +32,61 @@ func main() {
 	file := flag.String("file", "file.txt", "file specified")
 	flag.Parse()
 
+	if all {
+		if aes_ {
+			files, err := ioutil.ReadDir(".")
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			for _, file := range files {
+				if file.Name() == "cryptic" {
+					continue
+				} else if file.Name() == "cryptic.exe" {
+					continue
+				} else {
+					AES_Encrypt(file.Name())
+				}
+			}
+		}
+
+		if des_ {
+			files, err := ioutil.ReadDir(".")
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			for _, file := range files {
+				if file.Name() == "cryptic" {
+					continue
+				} else if file.Name() == "cryptic.exe" {
+					continue
+				} else {
+					TripleDesEncrypt(file.Name())
+				}
+			}
+		}
+
+		if rsa_ {
+			files, err := ioutil.ReadDir(".")
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			for _, file := range files {
+				if file.Name() == "cryptic" {
+					continue
+				} else if file.Name() == "cryptic.exe" {
+					continue
+				} else {
+					RsaEncrypt(file.Name())
+				}
+			}
+		}
+	}
+
 	// aes encrypt and decrypt
-	if aes256 {
+	if aes_ {
 		if encrypt {
 			AES_Encrypt(*file)
 		}
@@ -59,7 +97,7 @@ func main() {
 	}
 
 	// des encrypt and decrypt
-	if desTriple {
+	if des_ {
 		if encrypt {
 			TripleDesEncrypt(*file)
 		}
